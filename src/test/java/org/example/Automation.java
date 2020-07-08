@@ -50,7 +50,7 @@ public class Automation
     {
         return driver.findElement(by).getText();
     }
-    //Time stemp
+    //Time stamp
     public static long timestamp()
     {
         return (System.currentTimeMillis());
@@ -76,7 +76,7 @@ public class Automation
     public static void login(){
         clickOnElement(By.className("ico-login"));
         getTextFromEliment(By.id("Email"),"divyapatel@gmail.com");
-        getTextFromEliment(By.id("Password"),"123456");
+        getTextFromEliment(By.id("Password"),"dp123456");
         clickOnElement(By.xpath("//input[@value=\"Log in\"]"));
     }
 
@@ -133,7 +133,7 @@ public class Automation
         typeText(By.xpath("//input[@id=\"ConfirmPassword\"]"), "dp123456");
         //click on submit button
         clickOnElement(By.xpath("//input[1][@type=\"submit\"]"));
-        //camparing actual result with expected result
+        //compering actual result with expected result
         String expectedText = "Your registration completed";
         String actualText = getTextFromElement(By.xpath("//div[@class=\"result\"]"));
         Assert.assertEquals(actualText, expectedText);
@@ -141,16 +141,26 @@ public class Automation
 
     }
     @Test
-
-    public void userShouldBeAbleToSendFriendEmailSuccesfully () {
-        login();
+    //Method to refer product to friend
+    public void userShouldBeAbleToSendFriendEmailSuccesfully ()
+    {
+        //using login method
+        userShouldBeAbleToRegisterSucssefully();
+        //click on computer category
         clickOnElement(By.xpath("//a[text()=\"Computers \"]"));
+        //click on desktop
         clickOnElement((By.xpath("//a[text()=\" Desktops \"]")));
+        //click on Build on own computer link
         clickOnElement(By.xpath("//img[@alt=\"Picture of Build your own computer\"]"));
+        //click on email friend email button
         clickOnElement(By.xpath("//input[@value=\"Email a friend\"]"));
+        //Enter friend email
         typeText(By.xpath("//input[@data-val-required=\"Enter friend's email\"]"),"abc+"+timestamp()+"@gmail.com");
+        //enter personal message to friend
         typeText(By.xpath("//textarea[@id=\"PersonalMessage\"]"),"abcdefghijklmnopqrstuvwxyz");
+        //click on send email button
         clickOnElement(By.xpath("//input[@name=\"send-email\"]"));
+        //compering actual result with expected result
         String expectedText = "Your message has been sent.";
         String actual = getTextFromElement(By.className("result"));
         Assert.assertEquals(actual, expectedText);
@@ -158,17 +168,26 @@ public class Automation
     }
     @Test
 
-    public void userShouldBeAbleToAddProductToBasketSuccessfully(){
+    //method for user should be able to add product to basket successfully
+    public void userShouldBeAbleToAddProductToBasketSuccessfully()
+    {
+        //click on Book category
         clickOnElement(By.xpath("//ul[@class=\"top-menu notmobile\"]/li[5]/a"));
+        //click on fahrenheit book add to cart button
         clickOnElement(By.xpath(" //div[@class=\"item-grid\"]/div[1]/div/div[2]/div[3]/div[2]/input[1]"));
-        waituntilElementIsclickable(By.xpath("//div[@class=\"item-grid\"]/div[3]/div/div[2]/div[3]/div[2]/input[1]"),5);
+        ////using reusabble method wait untill find the element
+        waituntilElementIsclickable(By.xpath("//div[@class=\"item-grid\"]/div[3]/div/div[2]/div[3]/div[2]/input[1]"),10);
+        //click on 2nd book
         clickOnElement(By.xpath("//div[@class=\"item-grid\"]/div[3]/div/div[2]/div[3]/div[2]/input[1]"));
-        sleep1(5);
+        //using inbuild method to sleep until you click on element
+        sleep1(20);
+        //click on shopping cart button
         clickOnElement(By.xpath("//a[@class=\"ico-cart\"]"));
+        //compering actual result with expected result
         String expectedText=getTextFromElement(By.xpath("//tbody/tr/td[4]/a[@href=\"/fahrenheit-451-by-ray-bradbury\"]"));
         String actualText=getTextFromElement(By.xpath("//tbody/tr/td[4]/a[@href=\"/fahrenheit-451-by-ray-bradbury\"]"));
         Assert.assertEquals(actualText,expectedText);
-        String expected=getTextFromElement(By.xpath("//tbody/tr/td[4]/a[@href=\"/pride-and-prejudice\"]"));
+        String expected = getTextFromElement(By.xpath("//tbody/tr/td[4]/a[@href=\"/pride-and-prejudice\"]"));
         String actual = getTextFromElement(By.xpath("//tbody/tr/td[4]/a[@href=\"/pride-and-prejudice\"]"));
 
     }
